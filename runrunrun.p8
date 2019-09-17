@@ -4,7 +4,7 @@ __lua__
 
 function _init()
 	--here are the coords for the player. the x remains the same.
-	--format is x1,x2 for first 8, last number is y offset
+	--format is y1,y2 for first 8, last number is y offset
 	fx = {0,4,3,3,3,0,0,0}
 	--walk1
 	f1y = {0,0,0,4,3,3,5,0,5}
@@ -43,6 +43,18 @@ function _draw()
 			a = 0
 		end
 	end
+	if player.state == "jump" then
+		if player.sprlst == f1y or player.sprlst == f2y then
+			player.sprlst = f3y
+		elif player.sprlst == f3y then
+			player.sprlst = f4y
+		end
+		
+	end
+		
+	if player.state == "land" then
+		player.sprlst = f5y
+		player.state = "run"
 	cls(1)
 	drawplayer(player.x,player.y,1,1,fx,player.sprlst)
 
