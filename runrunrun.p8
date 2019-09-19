@@ -26,8 +26,9 @@ function drawplayer(xpos,ypos,xscale,yscale,frx,fry)
 	end
 end
 
+i = 0
 function _update()
-
+	i += 1
 end
 
 function _draw()
@@ -46,7 +47,7 @@ function _draw()
 	if player.state == "jump" then
 		if player.sprlst == f1y or player.sprlst == f2y then
 			player.sprlst = f3y
-		elif player.sprlst == f3y then
+		elseif player.sprlst == f3y then
 			player.sprlst = f4y
 		end
 		
@@ -55,9 +56,9 @@ function _draw()
 	if player.state == "land" then
 		player.sprlst = f5y
 		player.state = "run"
-	cls(1)
-	drawplayer(player.x,player.y,1,1,fx,player.sprlst)
-
+	end
+			cls(1)
+		drawplayer(player.x,player.y,1,1,fx,player.sprlst)
 end
 __gfx__
 00000000888888800008800008888800888888888888880088880000880088008800008888880000888888000888880088000088088888808800008888000000
