@@ -6,6 +6,8 @@ function _init()
 	--here are the coords for the player. the x remains the same.
 	--format is y1,y2 for first 8, last number is y offset
 	fx = {0,4,3,3,3,0,0,0}
+	--still
+	f0y = {0,0,0,5,3,3,5,0,5}
 	--walk1
 	f1y = {0,0,0,4,3,3,5,0,5}
 	--walk2
@@ -16,8 +18,10 @@ function _init()
 	f4y = {0,0,0,5,4,4,5,0,5}
 	--squish
 	f5y = {0,0,0,3,2,2,3,0,3}
-	player = {x=63,y=63, sprlst = f1y, state = "run"}
+	player = {x=30,y=94, sprlst = f0y, state = "title"}
 	a = 0
+	blockx = {0,50,60,90}
+	blocky = {95, 115}
 end
 function drawplayer(xpos,ypos,xscale,yscale,frx,fry)
 	for i=0,7,2 do
@@ -50,15 +54,21 @@ function _draw()
 		elseif player.sprlst == f3y then
 			player.sprlst = f4y
 		end
-		
+	end
+	if player.state == "title" then
+		player.sprlst = f0y
 	end
 		
 	if player.state == "land" then
 		player.sprlst = f5y
 		player.state = "run"
 	end
-			cls(1)
-		drawplayer(player.x,player.y,1,1,fx,player.sprlst)
+	cls(1)
+	drawplayer(player.x,player.y,1,1,fx,player.sprlst)
+	-- draw platforms
+	for i=1,#blocky do
+		rect(blockx[i*2-1],blocky[i],blockx[i*2],128) 
+	end
 end
 __gfx__
 00000000888888800008800008888800888888888888880088880000880088008800008888880000888888000888880088000088088888808800008888000000
