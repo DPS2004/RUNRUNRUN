@@ -22,6 +22,8 @@ function _init()
 	a = 0
 	blockx = {0,50,60,90}
 	blocky = {95, 115}
+	textkern = {7,9,7,9,7,7,7,9,6,7,9,9,9,9,6,6}
+	ta = 0
 end
 function drawplayer(xpos,ypos,xscale,yscale,frx,fry)
 	for i=0,7,2 do
@@ -29,6 +31,18 @@ function drawplayer(xpos,ypos,xscale,yscale,frx,fry)
 		
 	end
 end
+
+function drawtext(txt, offset)
+	ta += 0.05
+	textx = 0
+	sinoffset = 0
+	for i in all(txt) do
+		spr(i,textx + offset,sin(ta + sinoffset) * 4 + 8)
+		textx += textkern[i]
+		sinoffset += 0.06	
+	end
+end
+
 
 i = 0
 function _update()
@@ -69,6 +83,7 @@ function _draw()
 	for i=1,#blocky do
 		rect(blockx[i*2-1],blocky[i],blockx[i*2],128) 
 	end
+	drawtext({6,7,8,6,7,8,6,7,8},32)
 end
 __gfx__
 00000000888888800008800008888800888888888888880088880000880088008800008888880000888888000888880088000088088888808800008888000000
