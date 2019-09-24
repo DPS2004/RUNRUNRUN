@@ -28,6 +28,7 @@ function _init()
 	ta = 0
 	gamestate = "title"
 	statedelay = 10
+	speed = 2
 end
 function drawplayer(xpos,ypos,xscale,yscale,frx,fry)
 	color(8)
@@ -48,6 +49,9 @@ function drawtext(txt, offset)
 	end
 end
 
+function delplace(tab, num)
+	del(tab,tab[num])
+end
 function drawblocks()
 	for i=1,#blocky do
 		rect(blockx[i*2-1],blocky[i],blockx[i*2],128) 
@@ -84,7 +88,16 @@ function _update()
 	if gamestate == "game" then
 		player.y -= player.velocity
 		player.velocity -= 01
+		for i=1,#blockx do
+			blockx[i] -= speed
+		end
+		if blockx[2] < 0 then
+			delplace(blockx,2)
+			delplace(blockx,1)
+			delplace(blocky,1)
+		end
 	end
+
 	-- player animations
 		if player.state == "run" then
 		a += 1
@@ -143,6 +156,9 @@ function _draw()
 	if gamestate == "game" then
 		drawplayer(player.x,player.y,1,1,fx,player.sprlst)
 		drawblocks()	
+		for i in all(blockx) do
+			print(i)
+		end
 	end
 end
 __gfx__
